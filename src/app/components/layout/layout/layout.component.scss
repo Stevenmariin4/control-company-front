@@ -1,0 +1,70 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #333;
+  padding-top: 56px;
+  transition: width 0.3s ease;
+  overflow-x: hidden; /* Evita que el contenido se desplace fuera del sidebar */
+}
+
+.collapsed {
+  width: 56px;
+}
+
+.menu {
+  padding: 10px;
+}
+
+.menu-item {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.menu-item button {
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.menu-item .menu-label {
+  margin-left: 10px;
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: white;
+}
+
+.submenu {
+  margin-left: 10px;
+  display: none;
+}
+
+.submenu.expanded {
+  display: block;
+}
+
+.menu-item:hover .submenu {
+  display: block;
+}
+
+.content {
+  flex: 1;
+  padding: 10px;
+  margin-left: 200px; /* Ajusta este valor según el ancho del sidebar */
+  transition: margin-left 0.3s ease;
+}
+
+.collapsed .content {
+  margin-left: 56px; /* Ajusta este valor según el ancho del sidebar colapsado */
+}

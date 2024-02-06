@@ -1,0 +1,43 @@
+<div class="contianer-fluid">
+  <mat-card>
+    <mat-card-header class="blue-header">
+      <div class="mat-card-title-group">
+        <mat-card-title class="text-center">
+          Tipo De Servicio
+        </mat-card-title>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row mt-3">
+        <div class="col-12">
+          <form [formGroup]="typeServiceForm">
+            <div class="form-group">
+              <label for="name">Nombre del Tipo de Servicio</label>
+              <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nombre" [ngClass]="{ 'is-invalid': typeServiceForm.get('name')?.invalid && typeServiceForm.get('name')?.touched }" />
+              <div *ngIf="typeServiceForm.get('name')?.invalid && typeServiceForm.get('name')?.touched" class="invalid-feedback">
+                Nombre es requerido.
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label for="descripcion">Descripción del Tipo de Servicio</label>
+              <textarea id="description" class="form-control" formControlName="description" placeholder="Descripción" [ngClass]="{ 'is-invalid': typeServiceForm.get('description')?.invalid && typeServiceForm.get('description')?.touched }"></textarea>
+              <div *ngIf="typeServiceForm.get('description')?.invalid && typeServiceForm.get('description')?.touched" class="text-danger">
+                Descripción es requerida.
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form-group">
+            <button type="button" mat-raised-button color="warn" class="float-start" [routerLink]="'/admin/type-service/list'">Calcelar</button>
+            <button (click)="actionButtonSave()" mat-raised-button color="primary" class="float-end">{{titleButtonSave}}</button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+</mat-card>
+</div>

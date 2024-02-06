@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.blue-header {
+    background-color: #3f51b5;
+    color: white;
+    border-bottom-right-radius: 2em;
+  }
+  
+  .mat-card-title-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;  // Centra horizontalmente
+    align-items: center;      // Centra verticalmente
+    flex-direction: column;   // Alinea el texto y el botón en una columna
+  }
+  
+  .mat-card-title {
+    margin-bottom: 0;         // Elimina el margen inferior del título
+  }
+  
+  .mat-icon-button {
+    margin-left: 0.5rem;       // Ajusta el espacio entre el botón y el título
+  }  

@@ -1,0 +1,62 @@
+<div class="contianer-fluid">
+    <mat-card>
+        <mat-card-header class="blue-header">
+            <div class="mat-card-title-group">
+                <mat-card-title class="text-center">
+                    Sucursal
+                </mat-card-title>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <form [formGroup]="branchOfficesForm">
+                        <div class="form-group mb-3">
+                            <label for="name">Nombre de la sucursal</label>
+                            <input type="text" id="name" class="form-control" formControlName="name"
+                                placeholder="Nombre" [ngClass]="{'ng-dirty': branchOfficesForm.get('name')?.dirty,
+                                'is-invalid': branchOfficesForm.get('name')?.invalid && branchOfficesForm.get('name')?.touched}">
+                            <div *ngIf="branchOfficesForm.get('name')?.invalid && branchOfficesForm.get('name')?.touched"
+                                class="text-danger">
+                                Nombre es requerido.
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="description">Descripción</label>
+                            <input type="text" id="description" class="form-control" formControlName="description"  thousandSeparatorDirective
+                                placeholder="Descripción" [ngClass]="{'ng-dirty': branchOfficesForm.get('description')?.dirty,
+                                'is-invalid': branchOfficesForm.get('description')?.invalid && branchOfficesForm.get('description')?.touched}">
+                            <div *ngIf="branchOfficesForm.get('description')?.invalid && branchOfficesForm.get('description')?.touched"
+                                class="text-danger">
+                                description es requerido.
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="description">Id Punto Red</label>
+                            <input type="text" id="idProvideerPuntored" class="form-control" formControlName="idProvideerPuntored"  thousandSeparatorDirective
+                                placeholder="Id Punto Red" [ngClass]="{'ng-dirty': branchOfficesForm.get('idProvideerPuntored')?.dirty,
+                                'is-invalid': branchOfficesForm.get('idProvideerPuntored')?.invalid && branchOfficesForm.get('idProvideerPuntored')?.touched}">
+                            <div *ngIf="branchOfficesForm.get('idProvideerPuntored')?.invalid && branchOfficesForm.get('idProvideerPuntored')?.touched"
+                                class="text-danger">
+                                Campo es requerido.
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="form-group">
+                        <button type="button" mat-raised-button color="warn" class="float-start"
+                            [routerLink]="'/admin/branch-offices/list'">Calcelar</button>
+                        <button mat-raised-button color="primary" class="float-end" (click)="actionButtonSave()"
+                            [disabled]="branchOfficesForm.invalid">{{titleButtonSave}}</button>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</div>

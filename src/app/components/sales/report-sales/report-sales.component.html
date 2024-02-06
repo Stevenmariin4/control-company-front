@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-3" *ngFor="let summaryItem of listSumaryItems">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <i class="fas fa-icon-name fa-3x"></i> <!-- Reemplaza "icon-name" con el nombre del icono que desees -->
+          <h5 class="card-title">{{ summaryItem.id }}</h5>
+          <p class="card-text">{{ summaryItem.value }}</p>
+          <p class="card-text">Total Ganancia: {{ summaryItem.totalAmount | currency}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

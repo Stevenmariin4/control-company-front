@@ -1,0 +1,23 @@
+
+<div class="contianer-fluid">
+    <mat-card>
+        <mat-card-header class="blue-header">
+            <div class="mat-card-title-group">
+                <mat-card-title class="text-center">
+                    Configuración De Proveedores
+                </mat-card-title>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row mt-3">
+                <div class="col-2" *ngFor="let provideer of listProvideer">
+                    
+                    <button class="btn btn-outline-secondary" [routerLink]="['/admin/provideer/detail/'+ provideer._id]"  >
+                        <img [ngSrc]="provideer.image"  width="100" height="50" priority>
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>

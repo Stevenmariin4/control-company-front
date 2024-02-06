@@ -1,0 +1,45 @@
+<div class="container-fluid mt-3">
+    <mat-card>
+      <mat-card-header class="blue-header">
+        <div class="mat-card-title-group">
+          <mat-card-title class="text-center">
+            Añadir Configuración o Regla
+          </mat-card-title>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row mt-3">
+          <div class="col-12">
+            <form [formGroup]="configurationForm">
+              <div class="form-group mb-3">
+                <label for="service">Servicio</label>
+                <select id="service" class="form-control form-select" formControlName="service" aria-label="Default select example">
+                  <option *ngFor="let service of listServices" [value]="service._id">{{ service.name }}</option>
+                </select>
+                <div *ngIf="configurationForm.get('service')?.invalid && configurationForm.get('service')?.touched" class="text-danger">
+                  Servicio es requerido.
+                </div>
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="code">Código</label>
+                <input type="text" id="code" class="form-control" formControlName="code" placeholder="Código" />
+                <div *ngIf="configurationForm.get('code')?.invalid && configurationForm.get('code')?.touched" class="text-danger">
+                  Código es requerido.
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="form-group">
+              <button type="button" mat-raised-button color="warn" class="float-start" [routerLink]="'/admin/configurations/list'">Cancelar</button>
+              <button  mat-raised-button color="primary" class="float-end" (click)="actionButtonSave()" [disabled]="configurationForm.invalid">{{titleButtonSave}}</button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

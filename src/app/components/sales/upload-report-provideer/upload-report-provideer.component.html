@@ -1,0 +1,75 @@
+<div class="contianer-fluid">
+    <mat-card>
+        <mat-card-header class="blue-header">
+            <div class="mat-card-title-group">
+                <mat-card-title class="text-center">
+                    Cargar Reporte Proveedor
+                </mat-card-title>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <form [formGroup]="Form">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-group mb-3">
+                                    <label for="service">Proveedor</label>
+                                    <select id="service" class="form-control form-select" formControlName="provideer"
+                                        (change)="selectProvideer()" aria-label="Default select example">
+                                        <option *ngFor="let provideer of listProvideer" [value]="provideer._id">{{
+                                            provideer.name
+                                            }}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="Form.get('provideer')?.invalid && Form.get('provideer')?.touched"
+                                        class="text-danger">
+                                        Campo es requerido.
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check form-switch ml-auto">
+                                    <input class="form-check-input" type="checkbox" formControlName="isTest" id="isTest">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">
+                                        Archivo de prueba
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <input type="file" (change)="onFileSelected($event)" mat-raised-button
+                        color="primary" class="float-end" [disabled]="Form.invalid">
+            </div>
+            <div class="row mt-4" *ngIf="Form.value.isTest == true">
+                <div class="col-12">
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Sucursal</th>
+                            <th>Servicio</th>
+                            <th>Valor de Transacción</th>
+                            <th>Total Amount</th>
+                            <th>Tipo de Servicio</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let venta of listDetailReportSale">
+                            <td>{{ venta.branchOffices }}</td>
+                            <td>{{ venta.service }}</td>
+                            <td>{{ venta.valueTransaction | currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td>{{ venta.totalAmount | currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td>{{ venta.typeService }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

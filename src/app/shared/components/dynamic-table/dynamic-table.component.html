@@ -1,0 +1,136 @@
+<div>
+    <div class="row">
+      <div class="col-12">
+        <div class="filters">
+          <app-dynamic-filter
+            [table_filters]="tableStructure.table_filters"
+            (filter)="searchBy($event)"
+          ></app-dynamic-filter>
+        </div>
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th
+                *ngFor="let header of tableStructure.table_headers"
+                class="action-icon"
+                (click)="sortBy(header)"
+              >
+                <span>
+                  <div *ngIf="header.sort === 'desc'">
+                    <i class="fa fa-sort-down mr-1"></i>&nbsp;{{ header.nameToShow }}
+                  </div>
+                  <div *ngIf="header.sort === 'asc'">
+                    <i class="fa fa-sort-up mr-1"></i>&nbsp;{{ header.nameToShow }}
+                  </div>
+                  <div *ngIf="!header.sort">{{ header.nameToShow }}</div>
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="tableStructure.table_body.length > 0">
+            <tr *ngFor="let data of tableStructure.table_body">
+              <td
+                *ngFor="let header of tableStructure.table_headers"
+                [ngClass]="{ 'actions-column': header.propertyName === 'actions' }"
+              >
+                <div *ngIf="header.propertyName !== 'image'">
+                  <span
+                    *ngIf="validate(data[header.propertyName]) === 'object'"
+                    [ngSwitch]="data['inputEditable']"
+                  >
+                    <div *ngSwitchCase="false">
+                      <ng-container *ngFor="let actions of data[header.propertyName]">
+                        <button
+                          mat-icon-button
+                          *ngIf="actions.show"
+                          (click)="action(actions.action, data['id'], data)"
+                          [matTooltip]="actions.tooltip"
+                        >
+                          <i
+                            [class]="!actions.faClass ? 'fa' : actions.faClass"
+                            *ngIf="actions.show"
+                            [ngClass]="actions.icon"
+                          ></i>
+                        </button>
+                      </ng-container>
+                    </div>
+                    <div *ngSwitchCase="true">
+                      <ng-container *ngFor="let actions of data['inlineActions']">
+                        <button
+                          mat-icon-button
+                          *ngIf="actions.show"
+                          (click)="action(actions.action, data['id'], data)"
+                        >
+                          <i class="fa" *ngIf="actions.show" [ngClass]="actions.icon"></i>
+                        </button>
+                      </ng-container>
+                    </div>
+                  </span>
+                  <div class="action-icon" *ngIf="validate(data[header.propertyName]) !== 'object'">
+                    <!--<span *ngIf="validateEditable(header.propertyName, data['inputEditable']) != true">-->
+                    <span
+                      *ngIf="data['inputEditable'] !== true"
+                      (click)="action('view', data['id'], data)"
+                    >
+                      {{ data[header.propertyName] }}
+                    </span>
+                    <!--<span *ngIf="validateEditable(header.propertyName, data['inputEditable']) == true">-->
+                    <span *ngIf="data['inputEditable'] === true" [ngSwitch]="header.inputType">
+                      <mat-form-field
+                        [ngClass]="{
+                          'phone-column': header.propertyName === 'phone',
+                          'active-column': header.propertyName === 'active'
+                        }"
+                      >
+                        <mat-select
+                          [name]="header.propertyName"
+                          [id]="header.propertyName"
+                          *ngSwitchCase="'select'"
+                          [(ngModel)]="data[header.propertyName]"
+                        >
+                          <mat-option value="">{{ 'select'}}</mat-option>
+                          <mat-option
+                            *ngFor="let option of header['options']"
+                            [value]="option.value"
+                            >{{ option.label }}</mat-option
+                          >
+                        </mat-select>
+                        <input
+                          matInput
+                          *ngSwitchDefault
+                          [type]="header.inputType != '' ? header.inputType : 'text'"
+                          [(ngModel)]="data[header.propertyName]"
+                        />
+                      </mat-form-field>
+                    </span>
+                  </div>
+                </div>
+                <div *ngIf="header.propertyName === 'image'" class="circular">
+                  <img class="table-image" [src]="validateImage(data[header.propertyName])" alt="" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="tableStructure.table_body.length == 0">
+            <tr>
+              <td [colSpan]="tableStructure.table_headers.length">{{ 'noResults'}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td [attr.colspan]="tableStructure.table_headers.length + 1">
+                <mat-paginator
+                  #paginator
+                  [length]="tableStructure.totalData"
+                  [pageIndex]="pageIndex"
+                  [pageSize]="tableStructure.pageSize"
+                  (page)="goToPage((pageEvent = $event))"
+                ></mat-paginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  

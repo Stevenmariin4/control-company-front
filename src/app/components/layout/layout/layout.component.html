@@ -1,0 +1,28 @@
+<div class="app-container">
+  <div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
+    <!-- <button class="toggle-btn" (click)="toggleCollapse()">
+      <i class="fa fa-bars" ></i>
+    </button> -->
+    <div class="menu">
+      <div *ngFor="let menuItem of menuItems" class="menu-item">
+        <button class="btn btn-dark" (click)="toggleSubmenu(menuItem)">
+          <i [class]="menuItem.icon"></i>
+          <span *ngIf="!isCollapsed" class="menu-label">{{ menuItem.label }}</span>
+          <!-- <i class="fa fa-angle-down mr-2" *ngIf="menuItem.children && menuItem.children.length > 0 && !isCollapsed"></i> -->
+        </button>
+        <div *ngIf="menuItem.children && menuItem.children.length > 0" class="submenu"
+          [ngClass]="{'expanded': menuItem.expanded}">
+          <div *ngFor="let childItem of menuItem.children" class="menu-item">
+            <button class="btn btn-dark" [routerLink]="childItem.link" routerLinkActive="active">
+              <i class="fa" [ngClass]="{'fa-box': childItem.icon === 'box', 'fa-cog': childItem.icon === 'cog'}"></i>
+              <span *ngIf="!isCollapsed" class="menu-label">{{ childItem.label }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

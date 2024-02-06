@@ -1,0 +1,151 @@
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="search-box">
+      <form (submit)="searchBy(searchField)" class="w-100">
+        <mat-form-field fxFlex="100%">
+          <input
+            type="text"
+            matInput
+            [(ngModel)]="searchField"
+            [placeholder]="'Buscar'"
+            name="field"
+          />
+          <button mat-icon-button matSuffix type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </mat-form-field>
+      </form>
+      <!--<div fxFlex="5%" fxLayoutAlign="center" fxLayoutGap="2">
+        <button mat-button matSuffix color="primary" type="button" (click)="showSearch()">Avanzada
+        </button>
+      </div>-->
+    </div>
+    <div id="advancedSearch" [ngClass]="{ 'hide-search': searchShow }">
+      <form fxLayout="column" fxFlex="100%">
+        <div
+          class="form-group"
+          *ngFor="let input of table_filters"
+          [ngSwitch]="input.inputType"
+          fxFlex="100%"
+        >
+          <div *ngSwitchCase="'search'" fxFlex="100%">
+            <mat-form-field fxFlex="80%">
+              <mat-label>{{ input.nameToShow }}</mat-label>
+              <input
+                type="text"
+                matInput
+                (keypress)="input.hide = true"
+                (click)="input.hide = true"
+                [name]="input.propertyName"
+                [matAutocomplete]="auto"
+                [(ngModel)]="input.value"
+              />
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of input.defaultOptions" [value]="option">
+                {{ option.value }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div *ngSwitchCase="'comboSearch'" fxFlex="100%" (focusin)="input.hide = true">
+            <mat-form-field fxFlex="80%">
+              <mat-label>{{ input.nameToShow }}</mat-label>
+              <input
+                type="text"
+                matInput
+                [matAutocomplete]="auto"
+                [(ngModel)]="input.value"
+                (click)="input.hide = true"
+                [name]="input.propertyName"
+              />
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of input.defaultOptions" [value]="option">
+                {{ option.value }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div *ngSwitchCase="'select'" fxFlex="100%">
+            <mat-form-field fxFlex="80%">
+              <mat-label>{{ input.nameToShow }}</mat-label>
+              <mat-select
+                class="form-control"
+                [name]="input.propertyName"
+                [id]="input.propertyName"
+                [(ngModel)]="input.value"
+              >
+                <mat-option [value]="undefined"
+                  >--------{{ 'SelectCombo' }}--------</mat-option
+                >
+                <mat-option *ngFor="let option of input.options" [value]="option.value"
+                  >{{ option.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngSwitchCase="'checkbox'" fxFlex="100%">
+            <div *ngFor="let check of input.checkOptions">
+              <mat-checkbox
+                [name]="input.propertyName + '[]'"
+                [value]="check.value"
+                (click)="selectCheckbox(input, check.value)"
+                >{{ check.label }}</mat-checkbox
+              >
+              <!--<input [type]="input.inputType" [name]="input.propertyName+'[]'" [value]="check.value"
+                     (click)="selectCheckbox(input, check.value)">&nbsp;<label
+              for="{{input.propertyName}}">&nbsp;{{check.label}}</label>-->
+            </div>
+          </div>
+          <div *ngSwitchCase="'radio'">
+            <mat-radio-group
+              fxFlex="100%"
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [name]="input.propertyName + '[]'"
+              [(ngModel)]="input.selected"
+            >
+              <mat-radio-button
+                class="example-radio-button"
+                *ngFor="let radio of input.radioOptions"
+                [value]="radio"
+                (click)="selectRadio(input, radio.value, input.radioOptions)"
+                fxLayout="column"
+              >
+                {{ radio.label }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <!--<div *ngFor="let radio of input.radioOptions">
+              <input [type]="input.inputType" [value]="radio.selected" [id]="input.propertyName"
+                     [name]="input.propertyName+'[]'"
+                     (click)="selectRadio(input, radio.value, input.radioOptions)"
+                     [checked]="radio.selected"
+                     [(ngModel)]="radio.selected"><label for="{{input.propertyName}}">&nbsp;{{radio.label}}</label>
+            </div>-->
+          </div>
+          <div *ngSwitchDefault fxFlex="100%">
+            <mat-form-field fxFlex="80%">
+              <mat-label>{{ input.nameToShow }}</mat-label>
+              <input
+                matInput
+                [type]="input.inputType"
+                [(ngModel)]="input.value"
+                class="form-control"
+                id="input"
+                name="input"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="sendAdvancedSearch(table_filters)"
+          >
+            <i class="fa fa-search"></i>&nbsp;Buscar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

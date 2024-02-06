@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <button mat-raised-button color="primary" class="float-end" [routerLink]="'/admin/provideer/create/' + idProvideer">
+          <i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp; {{ 'Añadir Regla'}}
+        </button>
+      </mat-card-title>
+    </mat-card-header>
+  
+  
+    <mat-card-content>
+      <app-dynamic-table
+      [tableStructure]="provideerTableData"
+      (tableAction)="actionHandler($event)"
+      (tableChangePage)="pageChanger($event)"
+      (filter)="filterTable($event)"
+      (sort)="sortData($event)"
+    >
+    </app-dynamic-table>
+    </mat-card-content>
+  </mat-card>

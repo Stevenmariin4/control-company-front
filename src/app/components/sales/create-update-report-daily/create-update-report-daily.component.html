@@ -1,0 +1,84 @@
+<div class="contianer-fluid">
+    <mat-card>
+        <mat-card-header class="blue-header">
+            <div class="mat-card-title-group">
+                <mat-card-title class="text-center">
+                    Reporte Ventas
+                </mat-card-title>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <form [formGroup]="formSalesDaily" (ngSubmit)="actionButtonSave()">
+                        <div class="mb-3">
+                            <div class="form-group mb-3">
+                                <label for="service">Sucursal</label>
+                                <select id="service" class="form-control form-select" formControlName="branchOffices"
+                                     aria-label="Default select example">
+                                    <option *ngFor="let branchOffices of listBranchOffices" [value]="branchOffices._id">{{
+                                        branchOffices.name
+                                        }}
+                                    </option>
+                                </select>
+                                <div *ngIf="formSalesDaily.get('branchOffices')?.invalid && formSalesDaily.get('branchOffices')?.touched"
+                                    class="text-danger">
+                                    Campo es requerido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amountStart" class="form-label">Monto Inicial</label>
+                            <input type="number" id="amountStart" class="form-control" formControlName="amountStart" />
+                            <div *ngIf="formSalesDaily.get('amountStart')?.invalid && formSalesDaily.get('amountStart')?.touched"
+                                class="text-danger">
+                                Monto inicial es requerido y debe ser mayor o igual a cero.
+                            </div>
+                        </div>
+        
+                        <div class="mb-3">
+                            <label for="amountEnd" class="form-label">Monto Final</label>
+                            <input type="number" id="amountEnd" class="form-control" formControlName="amountEnd" />
+                            <div *ngIf="formSalesDaily.get('amountEnd')?.invalid && formSalesDaily.get('amountEnd')?.touched"
+                                class="text-danger">
+                                Monto final es requerido y debe ser mayor o igual a cero.
+                            </div>
+                        </div>
+        
+                        <div class="mb-3">
+                            <label for="dateSales" class="form-label">Fecha Seleccionada</label>
+                            <input type="date" id="dateSales" class="form-control"
+                                formControlName="dateSales" />
+                            <div *ngIf="formSalesDaily.get('dateSales')?.invalid && formSalesDaily.get('dateSales')?.touched"
+                                class="text-danger">
+                                Fecha seleccionada es requerida.
+                            </div>
+                        </div>
+        
+                        <button type="submit" class="btn btn-primary" [disabled]="formSalesDaily.invalid">Guardar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <table class="table table-responsive">
+                        <thead>
+                          <tr>
+                            <th scope="col">Tipo de servicio</th>
+                            <th scope="col">Servicio</th>
+                            <th scope="col">valor</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of listDetailSale">
+                            <td scope="row">{{item.typeService}} </td>
+                            <td>{{item.service}}</td>
+                            <td>{{item.totalAmount | currency}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

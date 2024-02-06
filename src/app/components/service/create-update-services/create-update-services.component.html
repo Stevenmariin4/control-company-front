@@ -1,0 +1,75 @@
+<div class="contianer-fluid">
+    <mat-card>
+        <mat-card-header class="blue-header">
+            <div class="mat-card-title-group">
+                <mat-card-title class="text-center">
+                    Servicio
+                </mat-card-title>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <form [formGroup]="serviceForm">
+                        <div class="form-group mb-3">
+                            <label for="typeService">Tipo de Servicio</label>
+                            <select id="typeService" class="form-control form-select" formControlName="typeService"
+                                aria-label="Default select example"
+                                [ngClass]="{'ng-dirty': serviceForm.get('typeService')?.dirty,
+                          'is-invalid': serviceForm.get('typeService')?.invalid && serviceForm.get('typeService')?.touched}">>
+                                <option *ngFor="let type of typeServices" [value]="type._id">{{ type.name }}</option>
+                            </select>
+                            <div *ngIf="serviceForm.get('typeService')?.invalid && serviceForm.get('typeService')?.touched"
+                                class="text-danger">
+                                Tipo de servicio es requerido.
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="name">Nombre del Servicio</label>
+                            <input type="text" id="name" class="form-control" formControlName="name"
+                                placeholder="Nombre" [ngClass]="{'ng-dirty': serviceForm.get('name')?.dirty,
+                                'is-invalid': serviceForm.get('name')?.invalid && serviceForm.get('name')?.touched}">
+                            <div *ngIf="serviceForm.get('name')?.invalid && serviceForm.get('name')?.touched"
+                                class="text-danger">
+                                Nombre es requerido.
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="amount">Monto a cobrar por cada x cantidad de dinero</label>
+                            <input type="number" id="amount" class="form-control" formControlName="amount"  thousandSeparatorDirective
+                                placeholder="Monto" [ngClass]="{'ng-dirty': serviceForm.get('amount')?.dirty,
+                                'is-invalid': serviceForm.get('amount')?.invalid && serviceForm.get('amount')?.touched}">
+                            <div *ngIf="serviceForm.get('amount')?.invalid && serviceForm.get('amount')?.touched"
+                                class="text-danger">
+                                Monto es requerido.
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="fee">Cantidad de dinero a cobrar</label>
+                            <input type="number" id="fee" class="form-control" formControlName="fee"
+                                placeholder="Fee" [ngClass]="{'ng-dirty': serviceForm.get('fee')?.dirty,
+                                'is-invalid': serviceForm.get('fee')?.invalid && serviceForm.get('fee')?.touched}">
+                            <div *ngIf="serviceForm.get('fee')?.invalid && serviceForm.get('fee')?.touched"
+                                class="text-danger">
+                                Fee es requerido.
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="form-group">
+                        <button type="button" mat-raised-button color="warn" class="float-start"
+                            [routerLink]="'/admin/services/list'">Calcelar</button>
+                        <button mat-raised-button color="primary" class="float-end" (click)="actionButtonSave()"
+                            [disabled]="serviceForm.invalid">{{titleButtonSave}}</button>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

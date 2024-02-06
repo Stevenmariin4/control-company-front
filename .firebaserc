@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "company-control-9ccca": {
+      "hosting": {
+        "company-control": [
+          "company-control-9ccca"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "company-control-9ccca"
+  }
+}
